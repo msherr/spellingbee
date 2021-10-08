@@ -111,4 +111,8 @@ func main() {
 		blueBold.Println(solution)
 	}
 
+	if !*quietmode {
+		fmt.Printf("\n\nFound %d words.\n", len(winners)+len(solutions))
+	}
+
 }
