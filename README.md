@@ -12,6 +12,10 @@ and then
 
 `go build .`
 
+Note that you should have some dictionary installed.  By default, we look for a word-list (i.e., a file with words in it, delimited by newline characters) at `/usr/share/dict/words`, although this can be overridden using the `-d` or `--dict` option.
+
+This file seems to exist on Macs (at least on my Mac).  On Ubuntu, you can install a suitable word-list via `sudo apt install wamerican-small`.
+
 
 ## Usage
 
