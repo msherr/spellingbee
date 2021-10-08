@@ -90,7 +90,6 @@ func main() {
 	winners := make([]string, 0)
 	solutions := make([]string, 0)
 	for _, word := range words {
-		//word = strings.Trim(word, "\n\r")
 		isValid, usesAllLetters := isGood(letterMap, centerLetter, word)
 		if isValid && !usesAllLetters {
 			winners = append(winners, word)
