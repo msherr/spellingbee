@@ -1,6 +1,8 @@
 # spellingbee
 Solver for the NYTimes Spelling Bee (I'm ashamed of myself for writing this)
 
+[Micah Sherr](mailto:msherr@cs.georgetown.edu) is responsible for this horrible thing.
+
 
 ## Compilation
 
