@@ -12,17 +12,17 @@ To build, do:
 ## Usage
 
 ```
-Spelling bee cheater!  Shame on you.
-usage: spellingbee-cheater [-h|--help] [-d|--dict "<value>"] -p|--puzzle
-                           "<value>"
+usage: spellingbee [-h|--help] [-d|--dict "<value>"] -p|--puzzle "<value>"
+                   [-q|--quiet]
 
-                           solves NYTimes spelling bees
+                   solves NYTimes spelling bees
 
 Arguments:
 
   -h  --help    Print help information
   -d  --dict    path to dictionary file. Default: /usr/share/dict/words
   -p  --puzzle  puzzle letters (put center letter first)
+  -q  --quiet   quiet mode; only output words
   ```
   
   Example:

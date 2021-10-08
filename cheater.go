@@ -45,9 +45,7 @@ func makeMap(letters string) map[string]bool {
 }
 
 func main() {
-	fmt.Println("Spelling bee cheater!  Shame on you.")
-
-	parser := argparse.NewParser("spellingbee-cheater", "solves NYTimes spelling bees")
+	parser := argparse.NewParser("spellingbee", "solves NYTimes spelling bees")
 	dictfile := parser.String("d", "dict", &argparse.Options{
 		Default: DEFAULT_DICTFILE,
 		Help:    "path to dictionary file",
@@ -56,10 +54,18 @@ func main() {
 		Required: true,
 		Help:     "puzzle letters (put center letter first)",
 	})
+	quietmode := parser.Flag("q", "quiet", &argparse.Options{
+		Help: "quiet mode; only output words",
+	})
+
 	err := parser.Parse(os.Args)
 	if err != nil {
 		fmt.Print(parser.Usage(err))
 		panic("invalid usage")
+	}
+
+	if !*quietmode {
+		fmt.Print("Spelling bee cheater!  Shame on you.\n\n\n")
 	}
 
 	*puzzle = strings.ToLower(*puzzle)
