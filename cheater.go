@@ -63,6 +63,7 @@ func main() {
 		fmt.Print(parser.Usage(err))
 		panic("invalid usage")
 	}
+	*puzzle = strings.ToLower(*puzzle)
 	centerLetter := strings.Split(*puzzle, "")[0]
 
 	dat, err := os.ReadFile(*dictfile)
