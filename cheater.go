@@ -20,30 +20,28 @@ import (
 const DEFAULT_DICTFILE string = "/usr/share/dict/words"
 const MIN_LENGTH int = 4
 
-func isGood(puzzleLetters, centerLetter, candidateWord string) bool {
+func isGood(letterMap map[string]bool, centerLetter, candidateWord string) (isValid, usesAllLetters bool) {
+	foundLetters := make(map[string]bool)
 	if len(candidateWord) < MIN_LENGTH {
-		return false
+		return false, false
 	}
 	foundCenter := false
 	for _, letter := range strings.Split(candidateWord, "") {
 		foundCenter = foundCenter || (letter == centerLetter)
-		if strings.Index(puzzleLetters, letter) == -1 {
-			return false
+		if _, ok := letterMap[letter]; !ok { // contains letter not in puzzle
+			return false, false
 		}
+		foundLetters[letter] = true
 	}
-	return foundCenter
+	return foundCenter, len(foundLetters) == len(letterMap)
 }
 
-func isSolution(puzzleLetters, centerLetter, candidateWord string) bool {
-	if !isGood(puzzleLetters, centerLetter, candidateWord) {
-		return false
+func makeMap(letters string) map[string]bool {
+	letterMap := make(map[string]bool)
+	for _, letter := range strings.Split(letters, "") {
+		letterMap[letter] = true
 	}
-	for _, letter := range strings.Split(puzzleLetters, "") {
-		if strings.Index(candidateWord, letter) == -1 {
-			return false
-		}
-	}
-	return true
+	return letterMap
 }
 
 func main() {
@@ -63,9 +61,12 @@ func main() {
 		fmt.Print(parser.Usage(err))
 		panic("invalid usage")
 	}
+
 	*puzzle = strings.ToLower(*puzzle)
 	centerLetter := strings.Split(*puzzle, "")[0]
+	letterMap := makeMap(*puzzle)
 
+	// read dictionary; consider only lower-case words
 	dat, err := os.ReadFile(*dictfile)
 	if err != nil {
 		panic("cannot open dictionary file")
@@ -78,21 +79,19 @@ func main() {
 		}
 	}
 
-	blueBold := color.New(color.FgBlue, color.Bold)
-
 	// figure out the list of words, keeping the solutions separate
 	winners := make([]string, 0)
 	solutions := make([]string, 0)
 	for _, word := range words {
-		word = strings.Trim(word, "\n\r")
-		if isGood(*puzzle, centerLetter, word) {
-			if isSolution(*puzzle, centerLetter, word) {
-				solutions = append(solutions, word)
-			} else {
-				winners = append(winners, word)
-			}
+		//word = strings.Trim(word, "\n\r")
+		isValid, usesAllLetters := isGood(letterMap, centerLetter, word)
+		if isValid && !usesAllLetters {
+			winners = append(winners, word)
+		} else if isValid {
+			solutions = append(solutions, word)
 		}
 	}
+
 	// sort by length
 	sort.Slice(winners, func(i, j int) bool {
 		return len(winners[i]) < len(winners[j])
@@ -100,6 +99,8 @@ func main() {
 	for _, winner := range winners {
 		fmt.Println(winner)
 	}
+
+	blueBold := color.New(color.FgBlue, color.Bold)
 	for _, solution := range solutions {
 		blueBold.Println(solution)
 	}
