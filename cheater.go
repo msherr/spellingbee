@@ -9,6 +9,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"sort"
 	"strings"
@@ -73,7 +74,7 @@ func main() {
 	letterMap := makeMap(*puzzle)
 
 	// read dictionary; consider only lower-case words
-	dat, err := os.ReadFile(*dictfile)
+	dat, err := ioutil.ReadFile(*dictfile)
 	if err != nil {
 		panic("cannot open dictionary file")
 	}
