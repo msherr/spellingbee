@@ -26,9 +26,7 @@ func isGood(puzzleLetters, centerLetter, candidateWord string) bool {
 	}
 	foundCenter := false
 	for _, letter := range strings.Split(candidateWord, "") {
-		if letter == centerLetter {
-			foundCenter = true
-		}
+		foundCenter = foundCenter || (letter == centerLetter)
 		if strings.Index(puzzleLetters, letter) == -1 {
 			return false
 		}
