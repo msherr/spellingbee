@@ -102,10 +102,14 @@ func main() {
 	sort.Slice(winners, func(i, j int) bool {
 		return len(winners[i]) < len(winners[j])
 	})
+	sort.Slice(solutions, func(i, j int) bool {
+		return len(solutions[i]) < len(solutions[j])
+	})
+
+	// print winners
 	for _, winner := range winners {
 		fmt.Println(winner)
 	}
-
 	blueBold := color.New(color.FgBlue, color.Bold)
 	for _, solution := range solutions {
 		blueBold.Println(solution)
