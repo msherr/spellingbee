@@ -6,6 +6,10 @@ Solver for the NYTimes Spelling Bee (I'm ashamed of myself for writing this)
 
 To build, do:
 
+`go get -d .`
+
+and then
+
 `go build .`
 
 
