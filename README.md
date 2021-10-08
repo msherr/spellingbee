@@ -23,6 +23,6 @@ Arguments:
   ```
   
   Example:
-  `./spellingbee -p shameful`
+  `./spellingbee -p shueamfl`
   
   Note that you should put the center letter first.

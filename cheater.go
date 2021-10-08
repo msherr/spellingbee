@@ -79,24 +79,30 @@ func main() {
 		}
 	}
 
+	blueBold := color.New(color.FgBlue, color.Bold)
+
+	// figure out the list of words, keeping the solutions separate
 	winners := make([]string, 0)
+	solutions := make([]string, 0)
 	for _, word := range words {
 		word = strings.Trim(word, "\n\r")
 		if isGood(*puzzle, centerLetter, word) {
-			winners = append(winners, word)
+			if isSolution(*puzzle, centerLetter, word) {
+				solutions = append(solutions, word)
+			} else {
+				winners = append(winners, word)
+			}
 		}
 	}
+	// sort by length
 	sort.Slice(winners, func(i, j int) bool {
 		return len(winners[i]) < len(winners[j])
 	})
-
-	blueBold := color.New(color.FgBlue, color.Bold)
 	for _, winner := range winners {
-		if isSolution(*puzzle, centerLetter, winner) {
-			blueBold.Println(winner)
-		} else {
-			fmt.Println(winner)
-		}
+		fmt.Println(winner)
+	}
+	for _, solution := range solutions {
+		blueBold.Println(solution)
 	}
 
 }
