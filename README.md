@@ -8,11 +8,11 @@ Solver for the NYTimes Spelling Bee (I'm ashamed of myself for writing this)
 
 To build, do:
 
-`go get -d .`
-
-and then
-
-`go build .`
+```bash
+go mod init spellingbee
+go mod tidy
+go build
+```
 
 Note that you should have some dictionary installed.  By default, we look for a word-list (i.e., a file with words in it, delimited by newline characters) at `/usr/share/dict/words`, although this can be overridden using the `-d` or `--dict` option.
 
